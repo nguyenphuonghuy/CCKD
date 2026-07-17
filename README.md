@@ -1,5 +1,5 @@
 [README.md](https://github.com/user-attachments/files/30110316/README.md)
-# CCKD-SSVEP v0.1.0 — Module 1
+# CCKD-SSVEP 
 
 Independent project for the 9-channel FB-tCNN teacher baseline.
 The raw dataset stays anywhere on disk. **Do not copy it into this project.**
