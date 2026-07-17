@@ -1,0 +1,58 @@
+project:
+  name: CCKD-SSVEP
+  version: 0.1.0
+
+dataset:
+  name: beta
+  # EDIT ONLY THIS PATH, or override with --data_root
+  data_root: /absolute/path/to/BETA
+  n_subjects: 70
+  n_classes: 40
+  n_channels_raw: 64
+  sfreq: 250.0
+  mat_key: data
+  t_start: 0.14
+  window_seconds: 1.0
+  teacher_channel_names: [Pz, PO5, PO3, POz, PO4, PO6, O1, Oz, O2]
+  teacher_channel_indices: [47, 53, 54, 55, 56, 57, 60, 61, 62]
+
+filterbank:
+  bands_hz: [[6.0, 90.0], [14.0, 90.0], [22.0, 90.0], [30.0, 90.0]]
+  order: 4
+  ripple_db: 1.0
+  normalize_per_trial_channel: true
+
+model:
+  name: FB-tCNN
+  branch_filters: 16
+  fusion_filters: 32
+  temporal_stride: 5
+  local_kernel: 5
+  dropout: 0.4
+
+training:
+  epochs: 150
+  batch_size: 64
+  learning_rate: 0.001
+  weight_decay: 0.0001
+  val_fraction_subjects: 0.15
+  early_stopping_patience: 20
+  reduce_lr_patience: 7
+  min_lr: 0.000001
+  min_delta: 0.0001
+  amp: true
+
+evaluation:
+  protocol: loso_subject_validation
+  n_folds: null
+  save_history: false
+
+runtime:
+  device: auto
+  workers: 2
+  seed: 2026
+  log_every: 10
+
+output:
+  output_dir: results/module1/beta_teacher
+  cache_dir: cache/filterbank/beta
